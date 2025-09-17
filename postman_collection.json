@@ -1,0 +1,122 @@
+{
+  "info": {
+    "name": "Nasiwak Team Tracker API",
+    "description": "Postman collection for testing Team Tracker APIs (Django + DRF + Channels).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/v1/auth/login/" }
+      }
+    },
+    {
+      "name": "Organizations - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"My Organization\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/v1/organizations/" }
+      }
+    },
+    {
+      "name": "Organizations - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "http://localhost:8000/api/v1/organizations/" }
+      }
+    },
+    {
+      "name": "Projects - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Project Alpha\",\n  \"organization\": 1\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/v1/projects/" }
+      }
+    },
+    {
+      "name": "Issues - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Bug in login\",\n  \"description\": \"Login button not working\",\n  \"project\": 1\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/v1/issues/" }
+      }
+    },
+    {
+      "name": "WebSocket - Project Updates",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Connect to WebSocket project channel",
+              "console.log('Connect to ws://localhost:8000/ws/projects/1/')"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "url": "ws://localhost:8000/ws/projects/1/",
+        "method": "GET"
+      }
+    },
+    {
+      "name": "WebSocket - Notifications",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Connect to Notifications WebSocket",
+              "console.log('Connect to ws://localhost:8000/ws/notifications/')"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "url": "ws://localhost:8000/ws/notifications/",
+        "method": "GET"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}

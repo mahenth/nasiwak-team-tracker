@@ -49,3 +49,14 @@ Run:
 or
   pytest
 
+## 🔌 API Testing with Postman
+
+This repo includes a Postman collection: [`postman_collection.json`](./postman_collection.json)
+
+- Import it into Postman → File → Import.
+- It contains:
+  - Auth APIs
+  - Organization APIs
+  - Project APIs
+  - Issue APIs
+  - WebSocket endpoints
